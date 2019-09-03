@@ -114,7 +114,8 @@ public class Blocks {
         }
     }
 
-    public void downBlock(int[][] tetrisMap) {
+    public boolean downBlock(int[][] tetrisMap) {
+        boolean retVal = true;
         int[] orgxPos = new int[pieceNum];
         int[] orgyPos = new int[pieceNum];
         System.arraycopy(xPos, 0, orgxPos, 0, pieceNum);
@@ -131,6 +132,7 @@ public class Blocks {
         if (isAcceptableMotion(tetrisMap, xPos, yPos) == false) {
             System.arraycopy(orgxPos, 0, xPos, 0, pieceNum);
             System.arraycopy(orgyPos, 0, yPos, 0, pieceNum);
+            retVal = false;
         }
 
         for (int i = 0; i < pieceNum; i++) {
@@ -140,6 +142,7 @@ public class Blocks {
         for (int i = 0; i < pieceNum; i++) {
             tetrisMap[xPos[i]][yPos[i]] = blockNum;
         }
+        return retVal;
     }
 
     public void leftBlock(int[][] tetrisMap) {

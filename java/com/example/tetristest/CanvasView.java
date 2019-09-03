@@ -47,22 +47,10 @@ public class CanvasView extends View {
                 movingBlock.rotateBlock(tetrisMap);
                 break;
             case DOWN:
-                for (int i=0; i<Blocks.pieceNum; i++) {
-                    int lowestElement = movingBlock.getLowestBlock();
-                    if (movingBlock.getyPos(lowestElement) == maxyMap-1) {
-                        switchNextBlock = true;
-                    } else if (tetrisMap[movingBlock.getxPos(i)][movingBlock.getyPos(i) + 1] > 0 && movingBlock.isThereMyBlockBelow(i) == false) {
-                        switchNextBlock = true;
-                    }
-                }
-
-                if (switchNextBlock == false) {
-                    movingBlock.downBlock(tetrisMap);
-                } else {
+                if (movingBlock.downBlock(tetrisMap) == false && isTopRowVacant() == true) {
                     Blocks newBlock = new Blocks();
                     newBlock.init();
                     movingBlock = newBlock;
-                    switchNextBlock = false;
                 }
                 break;
             case LEFT:
@@ -124,6 +112,16 @@ public class CanvasView extends View {
                 }
             }
         }
+    }
+
+    private boolean isTopRowVacant() {
+        // Check if there is deletable lines.
+        for (int i = 0; i < maxxMap; i++) {
+            if (tetrisMap[i][0] > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void cleanBlocks(int row) {
