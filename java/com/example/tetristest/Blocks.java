@@ -20,24 +20,24 @@ public class Blocks {
         blockNum = r.nextInt(5) + 1;
         switch (blockNum) {
             case 1: // t block
-                xPos = new int[]{5, 5, 6, 5};
-                yPos = new int[]{0, 1, 1, 2};
+                xPos = new int[]{3, 4, 4, 5};
+                yPos = new int[]{0, 0, 1, 0};
                 break;
             case 2: // s block
-                xPos = new int[]{5, 5, 6, 6};
-                yPos = new int[]{0, 1, 1, 2};
+                xPos = new int[]{3, 4, 4, 5};
+                yPos = new int[]{1, 1, 0, 0};
                 break;
             case 3: // i block
-                xPos = new int[]{5, 5, 5, 5};
-                yPos = new int[]{0, 1, 2, 3};
+                xPos = new int[]{3, 4, 5, 6};
+                yPos = new int[]{0, 0, 0, 0};
                 break;
             case 4: // o block
-                xPos = new int[]{5, 5, 6, 6};
-                yPos = new int[]{0, 1, 0, 1};
+                xPos = new int[]{3, 4, 3, 4};
+                yPos = new int[]{0, 0, 1, 1};
                 break;
             case 5: // l block
-                xPos = new int[]{5, 5, 5, 6};
-                yPos = new int[]{0, 1, 2, 2};
+                xPos = new int[]{3, 3, 4, 5};
+                yPos = new int[]{0, 1, 0, 0};
             default:
                 break;
         }
