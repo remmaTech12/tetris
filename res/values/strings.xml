@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TetrisTest</string>
+    <string name="leftButton">Left</string>
+    <string name="rightButton">Right</string>
+    <string name="dropButton">Drop</string>
+    <string name="rotateButton">Rotate</string>
+    <string name="text">"Test Canvas\nBitMap amp Text"</string>
+    <string name="tmp" />
+</resources>
