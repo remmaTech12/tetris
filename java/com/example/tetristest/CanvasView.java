@@ -37,8 +37,13 @@ public class CanvasView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.argb(100, 150, 150, 0));
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(50, 50, 1050, 1050, paint);
         // Set background color as black
-        canvas.drawColor(Color.argb(125, 0, 0, 0));
+        canvas.drawColor(Color.argb(125, 255, 255, 255));
 
         checkTetrisMap();
 
