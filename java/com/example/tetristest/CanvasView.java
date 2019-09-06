@@ -44,14 +44,13 @@ public class CanvasView extends View {
         // Set background color as black
         canvas.drawColor(Color.argb(125, 255, 255, 255));
 
-        checkTetrisMap();
-
         switch (motion) {
             case ROTATE:
                 movingBlock.rotateBlock(tetrisMap);
                 break;
             case DOWN:
                 if (movingBlock.downBlock(tetrisMap) == false && isTopRowVacant() == true) {
+                    checkTetrisMap();
                     Blocks newBlock = new Blocks();
                     newBlock.init(tetrisMap);
                     movingBlock = newBlock;
