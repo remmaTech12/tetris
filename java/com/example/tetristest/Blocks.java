@@ -14,6 +14,8 @@ public class Blocks {
     private int blockNum;
     private int[] xPos = new int[4];
     private int[] yPos = new int[4];
+    int[] orgxPos = new int[pieceNum];
+    int[] orgyPos = new int[pieceNum];
 
     public int init() {
         Random r = new Random();
@@ -45,90 +47,17 @@ public class Blocks {
         return blockNum;
     }
 
-    public int getxPos(int i) {
-        if (i < 0 || i > pieceNum + 1) {
-            Log.d("debug", "An undefined piece is selected.");
-            return 0;
-        }
-        return xPos[i];
-    }
-
-    public int getyPos(int i) {
-        if (i < 0 || i > pieceNum + 1) {
-            Log.d("debug", "An undefined piece is selected.");
-            return 0;
-        }
-        return yPos[i];
-    }
-
-    public boolean isThereMyBlockBelow(int i) {
-        for (int j = 0; j < pieceNum; j++) {
-            if (i != j && xPos[j] == xPos[i] && yPos[j] == yPos[i] + 1) {
-                Log.d("debug", "thats true");
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public int getLowestBlock() {
-        int element = 0;
-
-        for (int i = 0; i < pieceNum; i++) {
-            if (yPos[element] < yPos[i]) {
-                element = i;
-            }
-        }
-
-        return element;
-    }
-
-    public void rotateBlock(int[][] tetrisMap) {
-        int[] orgxPos = new int[pieceNum];
-        int[] orgyPos = new int[pieceNum];
+    private void preMotion(int[][] tetrisMap) {
         System.arraycopy(xPos, 0, orgxPos, 0, pieceNum);
         System.arraycopy(yPos, 0, orgyPos, 0, pieceNum);
 
         for (int i=0; i<pieceNum; i++) {
             tetrisMap[xPos[i]][yPos[i]] = 0;
         }
-
-        // Rotate block by matrix calculation
-        for (int i = 1; i < pieceNum; i++) {
-            xPos[i] = orgxPos[0] - (orgyPos[i] - orgyPos[0]);
-            yPos[i] = orgyPos[0] + (orgxPos[i] - orgxPos[0]);
-        }
-
-        if (isAcceptableMotion(tetrisMap, xPos, yPos) == false) {
-            System.arraycopy(orgxPos, 0, xPos, 0, pieceNum);
-            System.arraycopy(orgyPos, 0, yPos, 0, pieceNum);
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[orgxPos[i]][orgyPos[i]] = 0;
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = blockNum;
-        }
     }
 
-    public boolean downBlock(int[][] tetrisMap) {
+    private boolean postMotion(int[][] tetrisMap) {
         boolean retVal = true;
-        int[] orgxPos = new int[pieceNum];
-        int[] orgyPos = new int[pieceNum];
-        System.arraycopy(xPos, 0, orgxPos, 0, pieceNum);
-        System.arraycopy(yPos, 0, orgyPos, 0, pieceNum);
-
-        for (int i=0; i<pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = 0;
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            yPos[i] = yPos[i] + 1;
-        }
-
         if (isAcceptableMotion(tetrisMap, xPos, yPos) == false) {
             System.arraycopy(orgxPos, 0, xPos, 0, pieceNum);
             System.arraycopy(orgyPos, 0, yPos, 0, pieceNum);
@@ -142,63 +71,52 @@ public class Blocks {
         for (int i = 0; i < pieceNum; i++) {
             tetrisMap[xPos[i]][yPos[i]] = blockNum;
         }
+
+        return retVal;
+    }
+
+    public void rotateBlock(int[][] tetrisMap) {
+        preMotion(tetrisMap);
+
+        // Rotate block by matrix calculation
+        for (int i = 1; i < pieceNum; i++) {
+            xPos[i] = orgxPos[0] - (orgyPos[i] - orgyPos[0]);
+            yPos[i] = orgyPos[0] + (orgxPos[i] - orgxPos[0]);
+        }
+
+        postMotion(tetrisMap);
+    }
+
+    public boolean downBlock(int[][] tetrisMap) {
+        boolean retVal = true;
+        preMotion(tetrisMap);
+
+        for (int i = 0; i < pieceNum; i++) {
+            yPos[i] = yPos[i] + 1;
+        }
+
+        retVal = postMotion(tetrisMap);
         return retVal;
     }
 
     public void leftBlock(int[][] tetrisMap) {
-        int[] orgxPos = new int[pieceNum];
-        int[] orgyPos = new int[pieceNum];
-        System.arraycopy(xPos, 0, orgxPos, 0, pieceNum);
-        System.arraycopy(yPos, 0, orgyPos, 0, pieceNum);
-
-        for (int i=0; i<pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = 0;
-        }
+        preMotion(tetrisMap);
 
         for (int i = 0; i < pieceNum; i++) {
             xPos[i] = xPos[i] - 1;
         }
 
-        if (isAcceptableMotion(tetrisMap, xPos, yPos) == false) {
-            System.arraycopy(orgxPos, 0, xPos, 0, pieceNum);
-            System.arraycopy(orgyPos, 0, yPos, 0, pieceNum);
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[orgxPos[i]][orgyPos[i]] = 0;
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = blockNum;
-        }
+        postMotion(tetrisMap);
     }
 
     public void rightBlock(int[][] tetrisMap) {
-        int[] orgxPos = new int[pieceNum];
-        int[] orgyPos = new int[pieceNum];
-        System.arraycopy(xPos, 0, orgxPos, 0, pieceNum);
-        System.arraycopy(yPos, 0, orgyPos, 0, pieceNum);
-
-        for (int i=0; i<pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = 0;
-        }
+        preMotion(tetrisMap);
 
         for (int i = 0; i < pieceNum; i++) {
             xPos[i] = xPos[i] + 1;
         }
 
-        if (isAcceptableMotion(tetrisMap, xPos, yPos) == false) {
-            System.arraycopy(orgxPos, 0, xPos, 0, pieceNum);
-            System.arraycopy(orgyPos, 0, yPos, 0, pieceNum);
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[orgxPos[i]][orgyPos[i]] = 0;
-        }
-
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = blockNum;
-        }
+        postMotion(tetrisMap);
     }
 
     public boolean isAcceptableMotion(int[][] tetrisMap, int[] movedxPos, int[] movedyPos) {
