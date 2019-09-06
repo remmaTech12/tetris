@@ -52,8 +52,9 @@ public class CanvasView extends View {
                 if (movingBlock.downBlock(tetrisMap) == false && isTopRowVacant() == true) {
                     checkTetrisMap();
                     Blocks newBlock = new Blocks();
-                    newBlock.init(tetrisMap);
-                    movingBlock = newBlock;
+                    if (newBlock.init(tetrisMap) != -1) {
+                        movingBlock = newBlock;
+                    }
                 }
                 break;
             case LEFT:

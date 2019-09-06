@@ -44,8 +44,12 @@ public class Blocks {
                 break;
         }
 
-        for (int i = 0; i < pieceNum; i++) {
-            tetrisMap[xPos[i]][yPos[i]] = blockNum;
+        if (isDuplicateBlocks(tetrisMap, xPos, yPos) == true){
+            for (int i = 0; i < pieceNum; i++) {
+                tetrisMap[xPos[i]][yPos[i]] = blockNum;
+            }
+        } else {
+            return -1;
         }
         return blockNum;
     }
@@ -140,6 +144,16 @@ public class Blocks {
         // If there is another block after motion
         for (int i=0; i < pieceNum; i++) {
             if (tetrisMap[movedxPos[i]][movedyPos[i]] > 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isDuplicateBlocks(int[][] tetrisMap, int[] newxPos, int[] newyPos) {
+        for (int i=0; i < pieceNum; i++) {
+            if (tetrisMap[newxPos[i]][newyPos[i]] > 0) {
                 return false;
             }
         }
