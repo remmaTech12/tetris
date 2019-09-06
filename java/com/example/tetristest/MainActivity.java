@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private CanvasView tetrisCanvasView;
 
     // Set variables for drop blocks.
-    private int dropPeriod = 1000;
+    private int dropPeriod = 1200;
     private final Handler handler = new Handler();
     private Runnable runnable;
 

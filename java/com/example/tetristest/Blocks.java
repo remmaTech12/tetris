@@ -17,7 +17,7 @@ public class Blocks {
     int[] orgxPos = new int[pieceNum];
     int[] orgyPos = new int[pieceNum];
 
-    public int init() {
+    public int init(int[][] tetrisMap) {
         Random r = new Random();
         blockNum = r.nextInt(5) + 1;
         switch (blockNum) {
@@ -44,6 +44,9 @@ public class Blocks {
                 break;
         }
 
+        for (int i = 0; i < pieceNum; i++) {
+            tetrisMap[xPos[i]][yPos[i]] = blockNum;
+        }
         return blockNum;
     }
 

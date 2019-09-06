@@ -26,8 +26,7 @@ public class CanvasView extends View {
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        //paint = new Paint();
-        movingBlock.init();
+        movingBlock.init(tetrisMap);
     }
 
     public void showCanvas(int motion){
@@ -54,7 +53,7 @@ public class CanvasView extends View {
             case DOWN:
                 if (movingBlock.downBlock(tetrisMap) == false && isTopRowVacant() == true) {
                     Blocks newBlock = new Blocks();
-                    newBlock.init();
+                    newBlock.init(tetrisMap);
                     movingBlock = newBlock;
                 }
                 break;
