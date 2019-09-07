@@ -19,6 +19,8 @@ public class CanvasView extends View {
     public static final int maxyMap = 10;
 
     private int motion;
+    private int score = 0;
+    private String gameOverString = "";
     //private Paint paint;
     private int[][] tetrisMap = new int[maxxMap][maxyMap];
     private Blocks movingBlock = new Blocks();
@@ -27,6 +29,14 @@ public class CanvasView extends View {
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
         movingBlock.init(tetrisMap);
+    }
+
+    public int getScore () {
+        return score;
+    }
+
+    public String getGameOverString () {
+        return gameOverString;
     }
 
     public void showCanvas(int motion){
@@ -41,7 +51,8 @@ public class CanvasView extends View {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawRect(50, 50, 1050, 1050, paint);
-        // Set background color as black
+
+        // Set background color as yellow
         canvas.drawColor(Color.argb(125, 255, 255, 255));
 
         switch (motion) {
@@ -49,11 +60,13 @@ public class CanvasView extends View {
                 movingBlock.rotateBlock(tetrisMap);
                 break;
             case DOWN:
-                if (movingBlock.downBlock(tetrisMap) == false && isTopRowVacant() == true) {
+                if (movingBlock.downBlock(tetrisMap) == false) {
                     checkTetrisMap();
                     Blocks newBlock = new Blocks();
-                    if (newBlock.init(tetrisMap) != -1) {
+                    if (newBlock.init(tetrisMap) != Blocks.blockGenerateError) {
                         movingBlock = newBlock;
+                    } else {
+                        gameOverString = "GAME OVER!";
                     }
                 }
                 break;
@@ -80,26 +93,24 @@ public class CanvasView extends View {
                 switch (tetrisMap[i][j]) {
                     case 1:
                         paint.setColor(Color.argb(150, 0, 0, 255));
-                        canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                         break;
                     case 2:
                         paint.setColor(Color.argb(150, 0, 255, 0));
-                        canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                         break;
                     case 3:
                         paint.setColor(Color.argb(150, 255, 0, 0));
-                        canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                         break;
                     case 4:
                         paint.setColor(Color.argb(150, 0, 255, 255));
-                        canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                         break;
                     case 5:
                         paint.setColor(Color.argb(150, 255, 0, 255));
-                        canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                         break;
                     default:
 
+                }
+                if (tetrisMap[i][j] > 0 && tetrisMap[i][j] < 6) {
+                    canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                 }
             }
         }
@@ -118,18 +129,8 @@ public class CanvasView extends View {
         }
     }
 
-    private boolean isTopRowVacant() {
-        // Check if there is deletable lines.
-        for (int i = 0; i < maxxMap; i++) {
-            if (tetrisMap[i][0] > 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void cleanBlocks(int row) {
-        // Delete a row whose blocks are aligned in one line.
+        // Delete blocks aligned in one line.
         for (int i=0; i<maxxMap; i++) {
             tetrisMap[i][row] = 0;
         }
@@ -145,5 +146,6 @@ public class CanvasView extends View {
         for (int i=0; i<maxxMap; i++) {
             tetrisMap[i][0] = 0;
         }
+        score += 100;
     }
 }

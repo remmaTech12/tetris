@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private int dropPeriod = 1200;
     private final Handler handler = new Handler();
     private Runnable runnable;
+    private int score = 0;
+    private String gameOverString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 tetrisCanvasView.showCanvas(CanvasView.ROTATE);
             }
         });
+
     }
 
     private void timerSet(){
@@ -68,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 // Drop a block.
                 tetrisCanvasView.showCanvas(CanvasView.DOWN);
                 handler.postDelayed(this, dropPeriod);
+                score = tetrisCanvasView.getScore();
+                TextView scoreTextView = findViewById(R.id.scoreTextView);
+                scoreTextView.setText(String.valueOf(score));
+                gameOverString = tetrisCanvasView.getGameOverString();
+                TextView gameTextView = findViewById(R.id.gameTextView);
+                gameTextView.setText(gameOverString);
             }
         };
 

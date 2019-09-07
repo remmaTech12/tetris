@@ -1,15 +1,10 @@
 package com.example.tetristest;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Blocks {
     public static final int pieceNum = 4;
+    public static final int blockGenerateError = -1;
 
     private int blockNum;
     private int[] xPos = new int[4];
@@ -49,7 +44,7 @@ public class Blocks {
                 tetrisMap[xPos[i]][yPos[i]] = blockNum;
             }
         } else {
-            return -1;
+            return blockGenerateError;
         }
         return blockNum;
     }

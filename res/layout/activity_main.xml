@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
@@ -9,46 +10,80 @@
 
     <com.example.tetristest.CanvasView
         android:id="@+id/test_view"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="200dp"
-        android:layout_marginLeft="-3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="412dp"
+        android:layout_height="449dp"
+        android:layout_marginTop="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/dropButton"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/dropButton" />
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/dropButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/leftButton"
-        android:layout_width="88dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/leftButton" />
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="92dp"
+        android:text="@string/leftButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/rightButton"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="200dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/rightButton" />
+        android:layout_marginStart="220dp"
+        android:layout_marginBottom="92dp"
+        android:text="@string/rightButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/rotateButton"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="290dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/rotateButton" />
+        android:layout_marginStart="220dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/rotateButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/gameTextView"
+        android:layout_width="151dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="108dp"
+        android:text="Game: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreLetterTextView"
+        android:layout_width="84dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="108dp"
+        android:text="Score: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="84dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="108dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
