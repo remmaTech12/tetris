@@ -32,37 +32,26 @@ public class MainActivity extends AppCompatActivity {
         timerSet();
 
         Button dropButton = findViewById(R.id.dropButton);
-        dropButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tetrisCanvasView.showCanvas(CanvasView.DOWN);
-            }
-        });
+        setButtonFunction(dropButton, CanvasView.DOWN);
 
         Button leftButton = findViewById(R.id.leftButton);
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tetrisCanvasView.showCanvas(CanvasView.LEFT);
-            }
-        });
+        setButtonFunction(leftButton, CanvasView.LEFT);
 
         Button rightButton = findViewById(R.id.rightButton);
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tetrisCanvasView.showCanvas(CanvasView.RIGHT);
-            }
-        });
+        setButtonFunction(rightButton, CanvasView.RIGHT);
 
         Button rotateButton = findViewById(R.id.rotateButton);
-        rotateButton.setOnClickListener(new View.OnClickListener() {
+        setButtonFunction(rotateButton, CanvasView.ROTATE);
+
+    }
+
+    private void setButtonFunction(Button button, final int motion) {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tetrisCanvasView.showCanvas(CanvasView.ROTATE);
+                tetrisCanvasView.showCanvas(motion);
             }
         });
-
     }
 
     private void timerSet(){
@@ -72,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 // Drop a block.
                 tetrisCanvasView.showCanvas(CanvasView.DOWN);
                 handler.postDelayed(this, dropPeriod);
+
                 score = tetrisCanvasView.getScore();
                 TextView scoreTextView = findViewById(R.id.scoreTextView);
                 scoreTextView.setText(String.valueOf(score));

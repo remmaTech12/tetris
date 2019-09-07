@@ -21,10 +21,8 @@ public class CanvasView extends View {
     private int motion;
     private int score = 0;
     private String gameOverString = "";
-    //private Paint paint;
     private int[][] tetrisMap = new int[maxxMap][maxyMap];
     private Blocks movingBlock = new Blocks();
-    private boolean switchNextBlock = false;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
