@@ -10,6 +10,8 @@ public class Blocks {
     public static final int iBlock = 3;
     public static final int oBlock = 4;
     public static final int lBlock = 5;
+    public static final int jBlock = 6;
+    public static final int zBlock = 7;
 
     private int blockNum;
     private int[] xPos = new int[4];
@@ -18,7 +20,7 @@ public class Blocks {
     private int[] orgyPos = new int[pieceNum];
 
     public static boolean isBlock(int value) {
-        if (value == tBlock || value == sBlock || value == iBlock || value == oBlock || value == lBlock) {
+        if (value == tBlock || value == sBlock || value == iBlock || value == oBlock || value == lBlock || value == jBlock || value == zBlock) {
             return true;
         }
         return false;
@@ -26,7 +28,7 @@ public class Blocks {
 
     public int init(int[][] tetrisMap) {
         Random r = new Random();
-        blockNum = r.nextInt(5) + 1;
+        blockNum = r.nextInt(7) + 1;
         switch (blockNum) {
             case tBlock: // t block
                 xPos = new int[]{3, 4, 4, 5};
@@ -47,6 +49,15 @@ public class Blocks {
             case lBlock: // l block
                 xPos = new int[]{3, 3, 4, 5};
                 yPos = new int[]{0, 1, 0, 0};
+                break;
+            case jBlock: // j block
+                xPos = new int[]{3, 3, 4, 5};
+                yPos = new int[]{0, 1, 1, 1};
+                break;
+            case zBlock: // z block
+                xPos = new int[]{3, 4, 4, 5};
+                yPos = new int[]{0, 0, 1, 1};
+                break;
             default:
                 break;
         }

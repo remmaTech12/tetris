@@ -127,6 +127,12 @@ public class CanvasView extends View {
                     case Blocks.lBlock:
                         paint.setColor(Color.argb(250, 255, 0, 255));
                         break;
+                    case Blocks.jBlock:
+                        paint.setColor(Color.argb(250, 20, 100, 20));
+                        break;
+                    case Blocks.zBlock:
+                        paint.setColor(Color.argb(250, 150, 150, 30));
+                        break;
                     default:
 
                 }

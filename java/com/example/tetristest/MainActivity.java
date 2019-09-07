@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void timerSet(){
+    private void timerSet() {
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -69,9 +69,12 @@ public class MainActivity extends AppCompatActivity {
                 tetrisCanvasView.showCanvas(CanvasView.DOWN);
                 handler.postDelayed(this, dropPeriod);
 
+                // Show score.
                 score = tetrisCanvasView.getScore();
                 TextView scoreTextView = findViewById(R.id.scoreTextView);
                 scoreTextView.setText(String.valueOf(score));
+
+                // Show if game is over.
                 TextView gameTextView = findViewById(R.id.gameTextView);
                 if (tetrisCanvasView.getGameOverFlag() == true) {
                     gameTextView.setText(R.string.gameOver);
