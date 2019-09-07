@@ -5,41 +5,53 @@ import java.util.Random;
 public class Blocks {
     public static final int pieceNum = 4;
     public static final int blockGenerateError = -1;
+    public static final int tBlock = 1;
+    public static final int sBlock = 2;
+    public static final int iBlock = 3;
+    public static final int oBlock = 4;
+    public static final int lBlock = 5;
 
     private int blockNum;
     private int[] xPos = new int[4];
     private int[] yPos = new int[4];
-    int[] orgxPos = new int[pieceNum];
-    int[] orgyPos = new int[pieceNum];
+    private int[] orgxPos = new int[pieceNum];
+    private int[] orgyPos = new int[pieceNum];
+
+    public static boolean isBlock(int value) {
+        if (value == tBlock || value == sBlock || value == iBlock || value == oBlock || value == lBlock) {
+            return true;
+        }
+        return false;
+    }
 
     public int init(int[][] tetrisMap) {
         Random r = new Random();
         blockNum = r.nextInt(5) + 1;
         switch (blockNum) {
-            case 1: // t block
+            case tBlock: // t block
                 xPos = new int[]{3, 4, 4, 5};
                 yPos = new int[]{0, 0, 1, 0};
                 break;
-            case 2: // s block
+            case sBlock: // s block
                 xPos = new int[]{3, 4, 4, 5};
                 yPos = new int[]{1, 1, 0, 0};
                 break;
-            case 3: // i block
+            case iBlock: // i block
                 xPos = new int[]{3, 4, 5, 6};
                 yPos = new int[]{0, 0, 0, 0};
                 break;
-            case 4: // o block
+            case oBlock: // o block
                 xPos = new int[]{3, 4, 3, 4};
                 yPos = new int[]{0, 0, 1, 1};
                 break;
-            case 5: // l block
+            case lBlock: // l block
                 xPos = new int[]{3, 3, 4, 5};
                 yPos = new int[]{0, 1, 0, 0};
             default:
                 break;
         }
 
-        if (isDuplicateBlocks(tetrisMap, xPos, yPos) == true){
+        if (isThereNoBlocks(tetrisMap, xPos, yPos) == true){
             for (int i = 0; i < pieceNum; i++) {
                 tetrisMap[xPos[i]][yPos[i]] = blockNum;
             }
@@ -146,7 +158,7 @@ public class Blocks {
         return true;
     }
 
-    public boolean isDuplicateBlocks(int[][] tetrisMap, int[] newxPos, int[] newyPos) {
+    public boolean isThereNoBlocks(int[][] tetrisMap, int[] newxPos, int[] newyPos) {
         for (int i=0; i < pieceNum; i++) {
             if (tetrisMap[newxPos[i]][newyPos[i]] > 0) {
                 return false;

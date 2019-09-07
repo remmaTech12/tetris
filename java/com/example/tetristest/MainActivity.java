@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         timerSet();
 
-        Button dropButton = findViewById(R.id.dropButton);
-        setButtonFunction(dropButton, CanvasView.DOWN);
+        Button downButton = findViewById(R.id.downButton);
+        setButtonFunction(downButton, CanvasView.DOWN);
 
         Button leftButton = findViewById(R.id.leftButton);
         setButtonFunction(leftButton, CanvasView.LEFT);
@@ -65,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 score = tetrisCanvasView.getScore();
                 TextView scoreTextView = findViewById(R.id.scoreTextView);
                 scoreTextView.setText(String.valueOf(score));
-                gameOverString = tetrisCanvasView.getGameOverString();
                 TextView gameTextView = findViewById(R.id.gameTextView);
-                gameTextView.setText(gameOverString);
+                if (tetrisCanvasView.getGameOverFlag() == true) {
+                    gameTextView.setText(R.string.gameOver);
+                }
             }
         };
 

@@ -2,8 +2,8 @@
     <string name="app_name">TetrisTest</string>
     <string name="leftButton">Left</string>
     <string name="rightButton">Right</string>
-    <string name="dropButton">Drop</string>
+    <string name="downButton">Down</string>
     <string name="rotateButton">Rotate</string>
-    <string name="text">"Test Canvas\nBitMap amp Text"</string>
-    <string name="tmp" />
+    <string name="gameOver">GAME OVER</string>
+    <string name="score">Score: </string>
 </resources>

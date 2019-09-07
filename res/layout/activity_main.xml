@@ -10,19 +10,19 @@
 
     <com.example.tetristest.CanvasView
         android:id="@+id/test_view"
-        android:layout_width="412dp"
-        android:layout_height="449dp"
-        android:layout_marginTop="140dp"
+        android:layout_width="410dp"
+        android:layout_height="422dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/dropButton"
+        android:id="@+id/downButton"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:layout_marginBottom="28dp"
-        android:text="@string/dropButton"
+        android:layout_marginBottom="52dp"
+        android:text="@string/downButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -31,7 +31,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="116dp"
         android:text="@string/leftButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -41,7 +41,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="116dp"
         android:text="@string/rightButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="52dp"
         android:text="@string/rotateButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -60,9 +60,10 @@
         android:id="@+id/gameTextView"
         android:layout_width="151dp"
         android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="108dp"
-        android:text="Game: "
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="75dp"
+        android:text=""
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,9 +71,10 @@
         android:id="@+id/scoreLetterTextView"
         android:layout_width="84dp"
         android:layout_height="30dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="108dp"
-        android:text="Score: "
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="75dp"
+        android:text="@string/score"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,9 +82,10 @@
         android:id="@+id/scoreTextView"
         android:layout_width="84dp"
         android:layout_height="30dp"
-        android:layout_marginStart="328dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="350dp"
+        android:layout_marginTop="75dp"
         android:text=""
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -20,7 +20,7 @@ public class CanvasView extends View {
 
     private int motion;
     private int score = 0;
-    private String gameOverString = "";
+    private boolean gameOverFlag = false;
     private int[][] tetrisMap = new int[maxxMap][maxyMap];
     private Blocks movingBlock = new Blocks();
 
@@ -33,8 +33,8 @@ public class CanvasView extends View {
         return score;
     }
 
-    public String getGameOverString () {
-        return gameOverString;
+    public boolean getGameOverFlag () {
+        return gameOverFlag;
     }
 
     public void showCanvas(int motion){
@@ -45,12 +45,12 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.argb(100, 150, 150, 0));
+        paint.setColor(Color.argb(175, 180, 180, 180));
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawRect(50, 50, 1050, 1050, paint);
 
-        // Set background color as yellow
+        // Set background color as white
         canvas.drawColor(Color.argb(125, 255, 255, 255));
 
         switch (motion) {
@@ -64,7 +64,7 @@ public class CanvasView extends View {
                     if (newBlock.init(tetrisMap) != Blocks.blockGenerateError) {
                         movingBlock = newBlock;
                     } else {
-                        gameOverString = "GAME OVER!";
+                        gameOverFlag = true;
                     }
                 }
                 break;
@@ -89,25 +89,25 @@ public class CanvasView extends View {
         for (int i=0; i<maxxMap; i++) {
             for (int j=0; j<maxyMap; j++) {
                 switch (tetrisMap[i][j]) {
-                    case 1:
-                        paint.setColor(Color.argb(150, 0, 0, 255));
+                    case Blocks.tBlock:
+                        paint.setColor(Color.argb(250, 0, 0, 255));
                         break;
-                    case 2:
-                        paint.setColor(Color.argb(150, 0, 255, 0));
+                    case Blocks.sBlock:
+                        paint.setColor(Color.argb(250, 0, 255, 255));
                         break;
-                    case 3:
-                        paint.setColor(Color.argb(150, 255, 0, 0));
+                    case Blocks.iBlock:
+                        paint.setColor(Color.argb(250, 255, 0, 0));
                         break;
-                    case 4:
-                        paint.setColor(Color.argb(150, 0, 255, 255));
+                    case Blocks.oBlock:
+                        paint.setColor(Color.argb(250, 0, 255, 0));
                         break;
-                    case 5:
-                        paint.setColor(Color.argb(150, 255, 0, 255));
+                    case Blocks.lBlock:
+                        paint.setColor(Color.argb(250, 255, 0, 255));
                         break;
                     default:
 
                 }
-                if (tetrisMap[i][j] > 0 && tetrisMap[i][j] < 6) {
+                if (Blocks.isBlock(tetrisMap[i][j]) == true) {
                     canvas.drawCircle(100 * i + 100, 100 * j + 100, 50, paint);
                 }
             }
