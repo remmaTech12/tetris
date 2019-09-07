@@ -31,7 +31,7 @@ public class Blocks {
 
     public int init(int[][] tetrisMap) {
         Random r = new Random();
-        blockNum = r.nextInt(7) + 1;
+        blockNum = r.nextInt(blockArray.size()) + 1;
         switch (blockNum) {
             case tBlock: // t block
                 xPos = new int[]{3, 4, 4, 5};
