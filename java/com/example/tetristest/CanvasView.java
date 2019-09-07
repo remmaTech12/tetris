@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.icu.text.LocaleDisplayNames;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -18,7 +20,7 @@ public class CanvasView extends View {
     public static final int maxxMap = 10;
     public static final int maxyMap = 10;
 
-    private int motion;
+    private int motion = STATIONAL;
     private int score = 0;
     private boolean gameOverFlag = false;
     private int[][] tetrisMap = new int[maxxMap][maxyMap];
@@ -29,15 +31,15 @@ public class CanvasView extends View {
         movingBlock.init(tetrisMap);
     }
 
-    public int getScore () {
+    public int getScore() {
         return score;
     }
 
-    public boolean getGameOverFlag () {
+    public boolean getGameOverFlag() {
         return gameOverFlag;
     }
 
-    public void showCanvas(int motion){
+    public void showCanvas(int motion) {
         invalidate();
         this.motion = motion;
     }
@@ -53,29 +55,34 @@ public class CanvasView extends View {
         // Set background color as white
         canvas.drawColor(Color.argb(125, 255, 255, 255));
 
-        switch (motion) {
-            case ROTATE:
-                movingBlock.rotateBlock(tetrisMap);
-                break;
-            case DOWN:
-                if (movingBlock.downBlock(tetrisMap) == false) {
-                    checkTetrisMap();
-                    Blocks newBlock = new Blocks();
-                    if (newBlock.init(tetrisMap) != Blocks.blockGenerateError) {
-                        movingBlock = newBlock;
-                    } else {
-                        gameOverFlag = true;
+        if (gameOverFlag != true) {
+
+            switch (motion) {
+                case ROTATE:
+                    movingBlock.rotateBlock(tetrisMap);
+                    break;
+                case DOWN:
+                    if (movingBlock.downBlock(tetrisMap) == false) {
+                        checkTetrisMap();
+                        Blocks newBlock = new Blocks();
+                        if (newBlock.init(tetrisMap) != Blocks.blockGenerateError && gameOverFlag == false) {
+                            movingBlock = newBlock;
+                        } else {
+                            gameOverFlag = true;
+                            Log.d("debug", "what is the error!\n");
+                        }
                     }
-                }
-                break;
-            case LEFT:
-                movingBlock.leftBlock(tetrisMap);
-                break;
-            case RIGHT:
-                movingBlock.rightBlock(tetrisMap);
-                break;
-            default:
-                break;
+                    break;
+                case LEFT:
+                    movingBlock.leftBlock(tetrisMap);
+                    break;
+                case RIGHT:
+                    movingBlock.rightBlock(tetrisMap);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         printTetrisMap(canvas);
@@ -86,8 +93,8 @@ public class CanvasView extends View {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
 
-        for (int i=0; i<maxxMap; i++) {
-            for (int j=0; j<maxyMap; j++) {
+        for (int i = 0; i < maxxMap; i++) {
+            for (int j = 0; j < maxyMap; j++) {
                 switch (tetrisMap[i][j]) {
                     case Blocks.tBlock:
                         paint.setColor(Color.argb(250, 0, 0, 255));
@@ -116,11 +123,11 @@ public class CanvasView extends View {
 
     private void checkTetrisMap() {
         // Check if there is deletable lines.
-        for (int j=0; j<maxyMap; j++) {
-            for (int i=0; i<maxxMap; i++) {
+        for (int j = 0; j < maxyMap; j++) {
+            for (int i = 0; i < maxxMap; i++) {
                 if (tetrisMap[i][j] == 0) {
                     break;
-                } else if (i==maxxMap-1 && tetrisMap[i][j] != 0) {
+                } else if (i == maxxMap - 1 && tetrisMap[i][j] != 0) {
                     cleanBlocks(j);
                 }
             }
@@ -129,19 +136,19 @@ public class CanvasView extends View {
 
     private void cleanBlocks(int row) {
         // Delete blocks aligned in one line.
-        for (int i=0; i<maxxMap; i++) {
+        for (int i = 0; i < maxxMap; i++) {
             tetrisMap[i][row] = 0;
         }
 
         // Replace rows above the deleted row.
-        for (int j=row; j>0; j--) {
-            for (int i=0; i<maxxMap; i++) {
+        for (int j = row; j > 0; j--) {
+            for (int i = 0; i < maxxMap; i++) {
                 int tmp = 0;
                 tmp = tetrisMap[i][j - 1];
                 tetrisMap[i][j] = tmp;
             }
         }
-        for (int i=0; i<maxxMap; i++) {
+        for (int i = 0; i < maxxMap; i++) {
             tetrisMap[i][0] = 0;
         }
         score += 100;
