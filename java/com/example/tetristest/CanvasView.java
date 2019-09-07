@@ -31,6 +31,22 @@ public class CanvasView extends View {
         movingBlock.init(tetrisMap);
     }
 
+    public void refleshTetrisMap(int[][] tetrisMap) {
+        for (int i=0; i<maxxMap; i++) {
+            for (int j=0; j<maxyMap; j++) {
+                tetrisMap[i][j] = 0;
+            }
+        }
+    }
+
+    public void refleshGame() {
+        motion = STATIONAL;
+        score = 0;
+        gameOverFlag = false;
+
+        refleshTetrisMap(tetrisMap);
+    }
+
     public int getScore() {
         return score;
     }

@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private final Handler handler = new Handler();
     private Runnable runnable;
     private int score = 0;
-    private String gameOverString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         tetrisCanvasView.showCanvas(CanvasView.STATIONAL);
 
         timerSet();
+
+        Button refleshButton = findViewById(R.id.refleshButton);
+        refleshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tetrisCanvasView.refleshGame();
+            }
+        });
 
         Button downButton = findViewById(R.id.downButton);
         setButtonFunction(downButton, CanvasView.DOWN);
@@ -68,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView gameTextView = findViewById(R.id.gameTextView);
                 if (tetrisCanvasView.getGameOverFlag() == true) {
                     gameTextView.setText(R.string.gameOver);
+                } else {
+                    gameTextView.setText("");
                 }
             }
         };

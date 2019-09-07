@@ -6,4 +6,5 @@
     <string name="rotateButton">Rotate</string>
     <string name="gameOver">GAME OVER</string>
     <string name="score">Score: </string>
+    <string name="refleshButton">Reflesh</string>
 </resources>
