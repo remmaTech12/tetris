@@ -13,19 +13,17 @@ public class MainActivity extends AppCompatActivity {
 
     private CanvasView tetrisCanvasView;
 
-    // Set variables for drop blocks.
-    private int dropPeriod = 1200;
+    private int score = 0;
+    private int downInterval = 1200;
     private final Handler handler = new Handler();
     private Runnable runnable;
-    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        tetrisCanvasView = this.findViewById(R.id.test_view);
+        tetrisCanvasView = this.findViewById(R.id.canvasView);
         tetrisCanvasView.showCanvas(CanvasView.STATIONAL);
 
         timerSet();
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 // Drop a block.
                 tetrisCanvasView.showCanvas(CanvasView.DOWN);
-                handler.postDelayed(this, dropPeriod);
+                handler.postDelayed(this, downInterval);
 
                 // Show score.
                 score = tetrisCanvasView.getScore();

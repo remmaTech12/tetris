@@ -81,11 +81,10 @@ public class CanvasView extends View {
                     if (movingBlock.downBlock(tetrisMap) == false) {
                         checkTetrisMap();
                         Blocks newBlock = new Blocks();
-                        if (newBlock.init(tetrisMap) != Blocks.blockGenerateError && gameOverFlag == false) {
+                        if (newBlock.init(tetrisMap) != Blocks.blockGenerateError) {
                             movingBlock = newBlock;
                         } else {
                             gameOverFlag = true;
-                            Log.d("debug", "what is the error!\n");
                         }
                     }
                     break;
@@ -98,7 +97,6 @@ public class CanvasView extends View {
                 default:
                     break;
             }
-
         }
 
         printTetrisMap(canvas);
@@ -149,7 +147,7 @@ public class CanvasView extends View {
             for (int i = 0; i < maxxMap; i++) {
                 if (tetrisMap[i][j] == 0) {
                     break;
-                } else if (i == maxxMap - 1 && tetrisMap[i][j] != 0) {
+                } else if (i == maxxMap - 1 && tetrisMap[i][j] > 0) {
                     cleanBlocks(j);
                 }
             }
@@ -165,9 +163,7 @@ public class CanvasView extends View {
         // Replace rows above the deleted row.
         for (int j = row; j > 0; j--) {
             for (int i = 0; i < maxxMap; i++) {
-                int tmp = 0;
-                tmp = tetrisMap[i][j - 1];
-                tetrisMap[i][j] = tmp;
+                tetrisMap[i][j] = tetrisMap[i][j - 1];
             }
         }
         for (int i = 0; i < maxxMap; i++) {
